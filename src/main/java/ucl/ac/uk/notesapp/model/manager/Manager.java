@@ -18,11 +18,12 @@ public class Manager{
 		ALL_NOTEBOOKS.put("RecycleBin", new ArrayList<>());
 	}
 
-	public void newSubject(String subject)
+	public void createSubject(String archive)
 	{
-		if(ALL_NOTEBOOKS.get(subject) == null)
-			ALL_NOTEBOOKS.put(subject, new ArrayList<>());
+		if(ALL_NOTEBOOKS.get(archive) == null)
+			ALL_NOTEBOOKS.put(archive, new ArrayList<>());
 	}
+	
 
 	public List<String> getAllSubject()
 	{return new ArrayList<>(ALL_NOTEBOOKS.keySet());}

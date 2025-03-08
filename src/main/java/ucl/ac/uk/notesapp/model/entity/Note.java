@@ -8,6 +8,7 @@ public abstract class Note {
 	private List<String> tags;
 	private final String createdTime;
 	private String modifiedTime;
+	private String subject;
 
 	public Note() {
 		this.createdTime = TimeUtil.getCurrentTime();
@@ -40,6 +41,14 @@ public abstract class Note {
 
 	public void setModifiedTime(String modifiedTime) {
 		this.modifiedTime = TimeUtil.getCurrentTime();
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 
 

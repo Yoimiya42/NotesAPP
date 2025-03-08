@@ -39,5 +39,16 @@ public class NoteServiceImpl<T extends Note> implements NoteService<T>
 		}
 	}
 
+	@Override
+	public List<String> loadSubjects()
+	{
+		return manager.getAllSubject();
+	}
+
+	public void createSubject(String subject)
+	{
+		manager.createSubject(subject);
+	}
+
 
 }

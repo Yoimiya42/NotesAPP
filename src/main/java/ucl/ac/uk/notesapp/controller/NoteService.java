@@ -8,6 +8,9 @@ public interface NoteService<T extends Note>{
 
 	List<T> allNotes(Class<T> noteType);
 
-
 	void addNote(T note);
+
+	List<String> loadSubjects();
+
+	void createSubject(String subject);
 }
