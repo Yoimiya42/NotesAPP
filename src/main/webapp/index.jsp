@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-    <a href="/allNotes">All Notes</a>
+    <a href="/note/allNotes">All Notes</a>
     <a href="/createNote.jsp">Create Note</a>
     <a href="/newSubject.jsp">New Subject</a>
 </body>

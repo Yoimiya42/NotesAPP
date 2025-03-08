@@ -1,13 +1,18 @@
 package ucl.ac.uk.notesapp.model.entity;
+import ucl.ac.uk.notesapp.util.TimeUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Note {
+public abstract class Note {
 	private String title;
 	private List<String> tags;
+	private final String createdTime;
+	private String modifiedTime;
 
-	public Note(){}
+	public Note() {
+		this.createdTime = TimeUtil.getCurrentTime();
+		this.modifiedTime = createdTime;
+	}
 
 	public String getTitle() {
 		return title;
@@ -25,11 +30,24 @@ public class Note {
 		this.tags = tags;
 	}
 
-	@Override
-	public String toString() {
-		return "Note{" +
-				"title='" + title + '\'' +
-				", tags=" + tags +
-				'}';
+	public String getCreatedTime() {
+		return createdTime;
+	}
+
+	public String getModifiedTime() {
+		return modifiedTime;
+	}
+
+	public void setModifiedTime(String modifiedTime) {
+		this.modifiedTime = TimeUtil.getCurrentTime();
+	}
+
+
+	public String showCreatedTime() {
+		return TimeUtil.toReadableString(createdTime);
+	}
+
+	public String showModifiedTime() {
+		return TimeUtil.toReadableString(modifiedTime);
 	}
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-    <form action="/createNote" method="post">
+    <form action="/note/addNote" method="post">
         <input type="text" name="title" placeholder="Input title...", required>
 
         <input type="checkbox" name="labels" value="label1">LABEL1

@@ -10,17 +10,43 @@ import java.util.Map;
 
 public class Manager{
 
-	private static final Map<String, List<Note>> ALL_NOTES = new HashMap<>();
+	private  final Map<String, List<Note>> ALL_NOTEBOOKS = new HashMap<>();
 
 	public Manager()
 	{
-		ALL_NOTES.put("Unarchived", new ArrayList<>());
-		ALL_NOTES.put("RecycleBin", new ArrayList<>());
+		ALL_NOTEBOOKS.put("Unarchived", new ArrayList<>());
+		ALL_NOTEBOOKS.put("RecycleBin", new ArrayList<>());
 	}
 
-	public void newNoteBook(String subject)
+	public void newSubject(String subject)
 	{
-		if(ALL_NOTES.get(subject) == null)
-			ALL_NOTES.put(subject, new ArrayList<>());
+		if(ALL_NOTEBOOKS.get(subject) == null)
+			ALL_NOTEBOOKS.put(subject, new ArrayList<>());
 	}
+
+	public List<String> getAllSubject()
+	{return new ArrayList<>(ALL_NOTEBOOKS.keySet());}
+
+
+	public  List<Note> getAllNotes()
+	{
+		List<Note> allNotes = new ArrayList<>();
+		for(List<Note> subjectNotes : ALL_NOTEBOOKS.values())
+			allNotes.addAll(subjectNotes);
+
+		return allNotes;
+	}
+
+	public void addNote(Note note, String subject)
+	{
+		ALL_NOTEBOOKS.get(subject).add(note);
+	}
+
+
+	public static void loadAllNotes()
+	{
+
+	}
+
+
 }

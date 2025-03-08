@@ -41,10 +41,19 @@ public class JsonUtil {
 	/**
 	 *
 	 * @param filePath
-	 * @param obj
+	 * @param list
 	 * @param <T>
 	 * @throws IOException
 	 */
+	public static<T> void writeJsonFile(String filePath, List<T> list) throws IOException {
+		if(list == null)
+			throw  new IllegalArgumentException("Object is null");
+		if (filePath == null || filePath.isEmpty())
+			throw new IllegalArgumentException("File path is null or empty");
+
+		mapper.writeValue(new File(filePath), list);
+	}
+
 	public static<T> void writeJsonFile(String filePath, T obj) throws IOException {
 		if(obj == null)
 			throw  new IllegalArgumentException("Object is null");

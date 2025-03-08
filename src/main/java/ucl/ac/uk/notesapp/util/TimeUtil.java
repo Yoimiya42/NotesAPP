@@ -18,6 +18,5 @@ public class TimeUtil {
 	{
 		return LocalDateTime.parse(sequencedTime, SERIALIZED_FORMATTER).format(READABLE_FORMATTER);
 	}
-
-
+	
 }
