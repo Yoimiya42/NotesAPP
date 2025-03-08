@@ -1,7 +1,11 @@
 package ucl.ac.uk.notesapp.model.manager;
 
 import ucl.ac.uk.notesapp.model.entity.Note;
+import ucl.ac.uk.notesapp.model.entity.PlainTextNote;
+import ucl.ac.uk.notesapp.util.JsonUtil;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +14,7 @@ import java.util.Map;
 
 public class Manager{
 
-	private  final Map<String, List<Note>> ALL_NOTEBOOKS = new HashMap<>();
+	private final Map<String, List<Note>> ALL_NOTEBOOKS = new HashMap<>();
 
 	public Manager()
 	{
@@ -44,10 +48,33 @@ public class Manager{
 	}
 
 
-	public static void loadAllNotes()
+	public void loadAllNotes()
 	{
-
+		try{
+			File dataDir = new File("data");
+			File[] files = dataDir.listFiles((dir, name) -> name.toLowerCase().endsWith(".json"));
+			if(files != null)
+			{
+				for(File file:files)
+				{
+					Note note = JsonUtil.readJsonFile(file.getAbsolutePath(), PlainTextNote.class);
+					String subject = note.getSubject();
+					if (!ALL_NOTEBOOKS.containsKey(subject))
+						createSubject(subject);
+					ALL_NOTEBOOKS.get(subject).add(note);
+				}
+			}
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
-
+	public static void main(String[] args){
+		Manager manager = new Manager();
+		List<Note> notes = manager.getAllNotes();
+		for(Note note: notes)
+		{
+			System.out.println(note.getTitle());
+		}
+	}
 }

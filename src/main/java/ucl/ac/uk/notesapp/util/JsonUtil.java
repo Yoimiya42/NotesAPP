@@ -24,8 +24,21 @@ public class JsonUtil {
 	 * @param <T>
 	 * @throws IOException
 	 */
-	public static <T> List<T> readJsonFile(String filePath, Class<T> clazz)
-	throws IOException
+//	public static <T> List<T> readJsonFile(String filePath, Class<T> clazz)
+//	throws IOException
+//	{
+//		if (filePath == null || filePath.isEmpty())
+//			throw new IllegalArgumentException("File path is null or empty");
+//		File file = new File(filePath);
+//		if(!file.exists())
+//			throw new IOException("File does not exist");
+//
+//		return mapper.readValue(file, mapper.getTypeFactory().
+//				constructCollectionType(List.class, clazz));
+//	}
+
+	public static <T> T readJsonFile(String filePath, Class<T> clazz)
+			throws IOException
 	{
 		if (filePath == null || filePath.isEmpty())
 			throw new IllegalArgumentException("File path is null or empty");
@@ -33,8 +46,7 @@ public class JsonUtil {
 		if(!file.exists())
 			throw new IOException("File does not exist");
 
-		return mapper.readValue(file, mapper.getTypeFactory().
-				constructCollectionType(List.class, clazz));
+		return mapper.readValue(file, clazz);
 	}
 
 

@@ -16,24 +16,25 @@ public class NoteServiceImpl<T extends Note> implements NoteService<T>
 	private Manager manager = ManagerFactory.getManager();
 
 	@Override
-	public  List<T> allNotes(Class<T> noteType)
+	public List<Note> allNotes()
 	{
-		try {
-			return JsonUtil.readJsonFile("data/note.json", noteType);
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-			return Collections.emptyList();
-		}
-
+//		try {
+//			return JsonUtil.readJsonFile("data/note.json", noteType);
+//		} catch (IOException e) {
+//			System.out.println(e.getMessage());
+//			return Collections.emptyList();
+//		}
+		return manager.getAllNotes();
 	}
 
 	@Override
 	public void addNote(Note note)
 	{
-//		manager.addNote(note, subject);
+
 		try{
 			String fileName = note.getCreatedTime() + ".json";
 			JsonUtil.writeJsonFile("data/"+ fileName, note);
+			manager.addNote(note, note.getSubject());
 		}catch (IOException e){
 			throw new RuntimeException("Error writing note", e);
 		}

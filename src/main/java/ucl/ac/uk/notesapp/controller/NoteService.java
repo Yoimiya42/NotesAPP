@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface NoteService<T extends Note>{
 
-	List<T> allNotes(Class<T> noteType);
+	List<Note> allNotes();
 
 	void addNote(T note);
 

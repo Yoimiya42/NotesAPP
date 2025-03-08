@@ -4,7 +4,7 @@
 <html>
 <body>
 
-    <form action="/note/addNote" method="post">
+    <form action="/note/addNote" method="post" onsubmit="back()">
         <input type="text" name="title" placeholder="Input title...", required>
 
         <select name="subject">
@@ -23,6 +23,16 @@
         <textarea rows="7" cols="42" name="content" placeholder="Enter..."></textarea>
         <button type="submit" >Submit!</button>
     </form>
+
+<script>
+    function back() {
+        setTimeout(function(){
+            window.alert("Note Created Successfully");
+            window.location.href = "index.jsp";
+        },100);
+
+    }
+</script>
 
 </body>
 </html>
