@@ -37,16 +37,20 @@ public class JsonUtil {
 //				constructCollectionType(List.class, clazz));
 //	}
 
-	public static <T> T readJsonFile(String filePath, Class<T> clazz)
-			throws IOException
-	{
-		if (filePath == null || filePath.isEmpty())
+	public static <T> T readJsonFile(String filePath, Class<T> clazz) {
+		if (filePath == null || filePath.isEmpty()) {
 			throw new IllegalArgumentException("File path is null or empty");
+		}
 		File file = new File(filePath);
-		if(!file.exists())
-			throw new IOException("File does not exist");
+		if (!file.exists()) {
+			throw new RuntimeException("File does not exist: " + filePath);
+		}
 
-		return mapper.readValue(file, clazz);
+		try {
+			return mapper.readValue(file, clazz);
+		} catch (IOException e) {
+			throw new RuntimeException("Failed to read JSON file: " + filePath, e);
+		}
 	}
 
 
@@ -66,12 +70,17 @@ public class JsonUtil {
 		mapper.writeValue(new File(filePath), list);
 	}
 
-	public static<T> void writeJsonFile(String filePath, T obj) throws IOException {
+	public static<T> void writeJsonFile(String filePath, T obj) {
 		if(obj == null)
-			throw  new IllegalArgumentException("Object is null");
+			throw new IllegalArgumentException("Object is null");
 		if (filePath == null || filePath.isEmpty())
 			throw new IllegalArgumentException("File path is null or empty");
 
-		mapper.writeValue(new File(filePath), obj);
+		try {
+			mapper.writeValue(new File(filePath), obj);
+		} catch (IOException e) {
+			System.err.println("Error writing JSON file: " + e.getMessage());
+			throw new RuntimeException("Failed to write JSON file", e);
+		}
 	}
 }
