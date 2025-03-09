@@ -39,7 +39,7 @@ public abstract class Note {
 		return modifiedTime;
 	}
 
-	public void setModifiedTime(String modifiedTime) {
+	public void setModifiedTime() {
 		this.modifiedTime = TimeUtil.getCurrentTime();
 	}
 
@@ -51,6 +51,10 @@ public abstract class Note {
 		this.subject = subject;
 	}
 
+	public String getId()
+	{
+		return this.createdTime;
+	}
 
 	public String showCreatedTime() {
 		return TimeUtil.toReadableString(createdTime);
@@ -59,4 +63,6 @@ public abstract class Note {
 	public String showModifiedTime() {
 		return TimeUtil.toReadableString(modifiedTime);
 	}
+
+	public abstract void setContent(String content);
 }

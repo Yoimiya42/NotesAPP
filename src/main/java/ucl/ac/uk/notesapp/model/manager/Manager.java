@@ -14,39 +14,71 @@ import java.util.Map;
 
 public class Manager{
 
-	private final Map<String, List<Note>> ALL_NOTEBOOKS = new HashMap<>();
+	private static final String JSON_DIR = "data";
+	private final Map<String, List<Note>> noteBook = new HashMap<>();
 
 	public Manager()
 	{
-		ALL_NOTEBOOKS.put("Unarchived", new ArrayList<>());
-		ALL_NOTEBOOKS.put("RecycleBin", new ArrayList<>());
+		noteBook.put("Unarchived", new ArrayList<>());
+		noteBook.put("RecycleBin", new ArrayList<>());
 	}
 
 	public void createSubject(String archive)
 	{
-		if(ALL_NOTEBOOKS.get(archive) == null)
-			ALL_NOTEBOOKS.put(archive, new ArrayList<>());
+		if(noteBook.get(archive) == null)
+			noteBook.put(archive, new ArrayList<>());
 	}
-	
 
 	public List<String> getAllSubject()
-	{return new ArrayList<>(ALL_NOTEBOOKS.keySet());}
+	{return new ArrayList<>(noteBook.keySet());}
 
+	public List<Note> getSubjectNotes(String subject)
+	{   return noteBook.get(subject);   }
 
 	public  List<Note> getAllNotes()
 	{
 		List<Note> allNotes = new ArrayList<>();
-		for(List<Note> subjectNotes : ALL_NOTEBOOKS.values())
+		for(List<Note> subjectNotes : noteBook.values())
 			allNotes.addAll(subjectNotes);
 
 		return allNotes;
 	}
 
-	public void addNote(Note note, String subject)
+	public Note findNoteBySubjectAndId(String subject, String id)
 	{
-		ALL_NOTEBOOKS.get(subject).add(note);
+		List<Note> subjectNotes = getSubjectNotes(subject);
+		for(Note note : subjectNotes)
+		{
+			if(note.getId().equals(id))
+				return note;
+		}
+
+		return null;
 	}
 
+
+	public Note findNoteById(String id)
+	{
+		List<Note> allNotes = getAllNotes();
+		for(Note note : allNotes)
+		{
+			if(note.getId().equals(id))
+				return note;
+		}
+
+		return null;
+	}
+
+
+	public void createNote(Note note, String subject)
+	{
+		noteBook.get(subject).add(note);
+	}
+
+	public void updateNote(Note note, String subject)
+	{
+
+	}
 
 	public void loadAllNotes()
 	{
@@ -59,9 +91,9 @@ public class Manager{
 				{
 					Note note = JsonUtil.readJsonFile(file.getAbsolutePath(), PlainTextNote.class);
 					String subject = note.getSubject();
-					if (!ALL_NOTEBOOKS.containsKey(subject))
+					if (!noteBook.containsKey(subject))
 						createSubject(subject);
-					ALL_NOTEBOOKS.get(subject).add(note);
+					noteBook.get(subject).add(note);
 				}
 			}
 		} catch (IOException e) {
@@ -69,12 +101,5 @@ public class Manager{
 		}
 	}
 
-	public static void main(String[] args){
-		Manager manager = new Manager();
-		List<Note> notes = manager.getAllNotes();
-		for(Note note: notes)
-		{
-			System.out.println(note.getTitle());
-		}
-	}
+
 }

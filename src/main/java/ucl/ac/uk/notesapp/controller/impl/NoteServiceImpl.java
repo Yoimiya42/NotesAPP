@@ -18,12 +18,6 @@ public class NoteServiceImpl<T extends Note> implements NoteService<T>
 	@Override
 	public List<Note> allNotes()
 	{
-//		try {
-//			return JsonUtil.readJsonFile("data/note.json", noteType);
-//		} catch (IOException e) {
-//			System.out.println(e.getMessage());
-//			return Collections.emptyList();
-//		}
 		return manager.getAllNotes();
 	}
 
@@ -35,6 +29,7 @@ public class NoteServiceImpl<T extends Note> implements NoteService<T>
 			String fileName = note.getCreatedTime() + ".json";
 			JsonUtil.writeJsonFile("data/"+ fileName, note);
 			manager.addNote(note, note.getSubject());
+			System.out.println(manager.getAllNotes().size());
 		}catch (IOException e){
 			throw new RuntimeException("Error writing note", e);
 		}
@@ -46,10 +41,44 @@ public class NoteServiceImpl<T extends Note> implements NoteService<T>
 		return manager.getAllSubject();
 	}
 
+	@Override
+	public Note findNote(String subject, String id) {
+		List<Note> notebook = manager.getNoteBook(subject);
+		for(Note note : notebook)
+		{
+			if(note.getCreatedTime().equals(id))
+			{
+				return note;
+			}
+		}
+
+		return null;
+	}
+
+	public void deleteNote(String subject, String id) {
+		Note note = findNote(subject, id);
+		moveNote(subject, id, "RecycleBin");
+
+	}
+
+	public void moveNote(String oldSubject, String id, String newSubject) {
+		List<Note> notebook = manager.getNoteBook(oldSubject);
+		for(Note note : notebook)
+		{
+			if(note.getCreatedTime().equals(id))
+			{
+				notebook.remove(note);
+				manager.addNote(note, newSubject);
+			}
+		}
+
+	}
+
 	public void createSubject(String subject)
 	{
 		manager.createSubject(subject);
 	}
+
 
 
 }

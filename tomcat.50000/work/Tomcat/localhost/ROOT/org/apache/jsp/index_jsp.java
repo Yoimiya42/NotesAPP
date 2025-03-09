@@ -126,7 +126,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("</head>\r\n");
       out.write("<body>\r\n");
       out.write("    <a href=\"/allNotes\">All Notes</a>\r\n");
-      out.write("    <a href=\"/createNote.jsp\">Create Note</a>\r\n");
+      out.write("    <a href=\"/form.jsp\">Create Note</a>\r\n");
       out.write("    <a href=\"/newSubject.jsp\">New Subject</a>\r\n");
       out.write("</body>\r\n");
       out.write("</html>\r\n");

@@ -12,7 +12,7 @@
 </head>
 <body>
     <a href="/note/allNotes">All Notes</a>
-    <a href="/note/loadPage?new=true">Create Note</a>
+    <a href="/note/loadPage?new=t">Create Note</a>
 
     <button onclick="showBox()">New Subject</button>
     <div id="inputBox" style="display:none">

@@ -13,4 +13,10 @@ public interface NoteService<T extends Note>{
 	List<String> loadSubjects();
 
 	void createSubject(String subject);
+
+	Note findNote(String subject, String id);
+
+	void deleteNote(String subject, String id);
+
+	void moveNote(String oldSubject, String id, String newSubject);
 }

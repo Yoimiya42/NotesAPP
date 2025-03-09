@@ -7,9 +7,9 @@ import java.util.Locale;
 
 public class TimeUtil {
 	private static final DateTimeFormatter READABLE_FORMATTER =
-			DateTimeFormatter.ofPattern("d MMMM yyyy, HH:mm", Locale.ENGLISH);
+			DateTimeFormatter.ofPattern("d MMMM, HH:mm:ss", Locale.ENGLISH);
 	private static final DateTimeFormatter SERIALIZED_FORMATTER =
-			DateTimeFormatter.ofPattern("HHmmMMddyy");
+			DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 
 	public static String getCurrentTime()
 	{   return LocalDateTime.now().format(SERIALIZED_FORMATTER);   }
