@@ -1,4 +1,5 @@
 package ucl.ac.uk.notesapp.model.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ucl.ac.uk.notesapp.util.TimeUtil;
 
 import java.util.List;
@@ -51,9 +52,10 @@ public abstract class Note {
 		this.subject = subject;
 	}
 
+	@JsonIgnore
 	public String getId()
 	{
-		return this.createdTime;
+		return getCreatedTime();
 	}
 
 	public String showCreatedTime() {

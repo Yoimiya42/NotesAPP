@@ -2,17 +2,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
 </head>
 
 <body>
     <a href="/note/allNotes">All Notes</a>
-    <a href="/note/loadPage?new=t">Create Note</a>
+    <a href="/note/loadForm?mode=create">Create Note</a>
 
+    <hr>
     <button onclick="showBox()">New Subject</button>
     <div id="inputBox" style="display:none">
         <input type="text" id="subjectInput" maxlength="20" placeholder="new subject">
-        <button onclick="submitData()" >Submit</button>
+        <button onclick="submitData()">Submit</button>
         <button onclick="hideBox()">Cancel</button>
     </div>
 
@@ -25,11 +27,10 @@
         }
         function submitData()
         {
-            fetch("/note/addSubject", {
+            fetch("/note/addSubject",
+            {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
+                headers: {"Content-Type": "application/x-www-form-urlencoded"},
                 body: "newSubject=" + encodeURIComponent(document.getElementById("subjectInput").value)
             })
                 .then(response => {

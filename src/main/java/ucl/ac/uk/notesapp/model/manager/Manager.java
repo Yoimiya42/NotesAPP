@@ -6,10 +6,7 @@ import ucl.ac.uk.notesapp.util.JsonUtil;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class Manager {
@@ -106,7 +103,37 @@ public class Manager {
 		}
 	}
 
+	public List<Note> getAllNotesSorted(String sortBy)
+	{
+		List<Note> allNotes = getAllNotes();
 
+		switch(sortBy)
+		{
+			case "createdTime_asc":
+				Collections.sort(allNotes, Comparator.comparing(Note::getCreatedTime));
+				break;
+			case "createdTime_desc":
+				Collections.sort(allNotes, Comparator.comparing(Note::getCreatedTime).reversed());
+				break;
+			case "modifiedTime_asc":
+				Collections.sort(allNotes, Comparator.comparing(Note::getModifiedTime));
+				break;
+			case "modifiedTime_desc":
+				Collections.sort(allNotes, Comparator.comparing(Note::getModifiedTime).reversed());
+				break;
+			case "title_asc":
+				Collections.sort(allNotes, (n1, n2) -> n1.getTitle().compareToIgnoreCase(n2.getTitle()));
+				break;
+			case "title_desc":
+				Collections.sort(allNotes, (n1, n2) -> n2.getTitle().compareToIgnoreCase(n1.getTitle()));
+				break;
+			default:
+				Collections.sort(allNotes, Comparator.comparing(Note::getModifiedTime).reversed()); // 默认按修改时间降序
+				break;
+		}
+
+		return allNotes;
+	}
 
 
 
