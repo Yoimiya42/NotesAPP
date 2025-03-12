@@ -5,18 +5,19 @@ import ucl.ac.uk.notesapp.model.entity.TextNote;
 import ucl.ac.uk.notesapp.util.JsonUtil;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.*;
-
+import java.util.stream.Collectors;
 
 public class Manager {
 
 	private static final String JSON_DIR = "data/";
-	private final Map<String, List<Note>> noteBook = new HashMap<>();
+	private final Map<String, Note> noteBook = new HashMap<>();
+	private final List<String> subjects = new ArrayList<>();
+	private final List<Note> trash = new ArrayList<>();
 
-	public Manager() {
-		noteBook.put("Unarchived", new ArrayList<>());
-		noteBook.put("RecycleBin", new ArrayList<>());
+	public Manager()
+	{
+		subjects.add("Unarchived");
 		loadAllNotes();
 	}
 
@@ -30,77 +31,67 @@ public class Manager {
 			{
 				Note note = JsonUtil.readJsonFile(file.getAbsolutePath(), TextNote.class);
 				String subject = note.getSubject();
-				if (!noteBook.containsKey(subject))
-					createSubject(subject);
-				noteBook.get(subject).add(note);
+				createSubject(subject);
+				noteBook.put(note.getId(), note);
+				if(note.isInTrash())
+					trash.add(note);
 			}
 		}
 	}
 
+
+	public List<String> getAllSubjects()
+	{return subjects;}
+
 	public void createSubject(String subject)
 	{
-		if (noteBook.get(subject) == null)
-			noteBook.put(subject, new ArrayList<>());
+		if(!subjects.contains(subject))
+			subjects.add(subject);
 	}
 
-	public List<String> getAllSubject() {return new ArrayList<>(noteBook.keySet());}
-
-
-
-	public List<Note> getSubjectNotes(String subject) {return noteBook.get(subject);}
-
-	public List<Note> getAllNotes() {
-		List<Note> allNotes = new ArrayList<>();
-		for (List<Note> subjectNotes : noteBook.values())
-			allNotes.addAll(subjectNotes);
-
-		return allNotes;
+	public List<Note> getSubjectNotes(String subject)
+	{
+		return getAllNotes().stream()
+				.filter(n -> n.getSubject().equals(subject))
+				.collect(Collectors.toList());
 	}
 
+	public List<Note> getAllNotes()
+	{return new ArrayList<>(noteBook.values());}
 
-
-	public Note findNoteBySubjectAndId(String subject, String id) {
-		List<Note> subjectNotes = getSubjectNotes(subject);
-		for (Note note : subjectNotes) {
-			if (note.getId().equals(id))
-				return note;
-		}
-
-		return null;
-	}
-
-	public Note findNoteById(String id) {
-		List<Note> allNotes = getAllNotes();
-		for (Note note : allNotes) {
-			if (note.getId().equals(id))
-				return note;
-		}
-
-		return null;
-	}
-
-
-	public void createNote(Note note, String subject) {
-		noteBook.get(subject).add(note);
+	public void createNote(Note note) {
+		noteBook.put(note.getId(), note);
 		updateDB(note);
 	}
+
+	public Note findNoteById(String id)
+	{return noteBook.get(id);}
 
 	public void updateDB(Note note) {
 		JsonUtil.writeJsonFile(JSON_DIR+note.getId()+".json", note);
 	}
 
-	public void moveNote(String oldSubject, String id, String newSubject) {
+	public void deleteNote(Note note)
+	{
+		note.setInTrash(true);
+		note.setModifiedTime();
+		trash.add(note);
 
-		List<Note> oldSubjectNotes = getSubjectNotes(oldSubject);
-		for (Note note : oldSubjectNotes)
-		{
-			if (note.getId().equals(id))
-			{
-				oldSubjectNotes.remove(note);
-				createNote(note, newSubject);
-				return;
-			}
+		updateDB(note);
+	}
+
+	public void permanentDelete(Note note) {
+		noteBook.remove(note.getId());
+		trash.remove(note);
+		File file = new File(JSON_DIR + note.getId() + ".json");
+		if (file.exists()) {
+			file.delete();
 		}
+	}
+
+	public List<Note> getTrash()
+	{
+		return trash;
 	}
 
 	public List<Note> getAllNotesSorted(String sortBy)
@@ -135,6 +126,25 @@ public class Manager {
 		return allNotes;
 	}
 
+	public List<Note> searchNotes(String searchStr, String searchOption) {
+		List<Note> allNotes = getAllNotes();
+		if (searchStr == null || searchStr.isEmpty()) {
+			return allNotes;
+		}
 
+		return allNotes.stream()
+				.filter(note -> !note.isInTrash())  // Exclude notes in trash
+				.filter(note -> {
+					if ("title".equals(searchOption)) {
+						return note.getTitle().toLowerCase().contains(searchStr.toLowerCase());
+					} else if ("content".equals(searchOption)) {
+						return note instanceof TextNote &&
+								((TextNote) note).getContent() != null &&
+								((TextNote) note).getContent().toLowerCase().contains(searchStr.toLowerCase());
+					}
+					return false;
+				})
+				.collect(Collectors.toList());
+	}
 
 }

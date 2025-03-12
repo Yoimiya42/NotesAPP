@@ -1,5 +1,6 @@
-
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--<% response.sendRedirect(request.getContextPath() + "/home"); %>--%>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,8 @@
 </head>
 
 <body>
-    <a href="/note/allNotes">All Notes</a>
-    <a href="/note/loadForm?mode=create">Create Note</a>
+    <a href="/load/loadNoteList">All Notes</a>
+    <a href="/load/loadForm?mode=create">Create Note</a>
 
     <hr>
     <button onclick="showBox()">New Subject</button>
@@ -18,7 +19,11 @@
         <button onclick="hideBox()">Cancel</button>
     </div>
 
+    <hr>
+
+    <a href="searchNote.jsp">Search</a>
     <script>
+
         function showBox(){
             document.getElementById("inputBox").style.display="block";
         }
@@ -44,6 +49,8 @@
                 })
 
         }
+
+
     </script>
 
 

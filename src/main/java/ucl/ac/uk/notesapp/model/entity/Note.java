@@ -10,6 +10,7 @@ public abstract class Note {
 	private final String createdTime;
 	private String modifiedTime;
 	private String subject;
+	private boolean inTrash = false;
 
 	public Note() {
 		this.createdTime = TimeUtil.getCurrentTime();
@@ -64,6 +65,14 @@ public abstract class Note {
 
 	public String showModifiedTime() {
 		return TimeUtil.toReadableString(modifiedTime);
+	}
+
+	public boolean isInTrash() {
+		return inTrash;
+	}
+
+	public void setInTrash(boolean onTrash) {
+		this.inTrash = onTrash;
 	}
 
 	public abstract void setContent(String content);
