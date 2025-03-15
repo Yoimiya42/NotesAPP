@@ -1,0 +1,112 @@
+/* Main page layout */
+body {
+    margin: 0;
+    padding: 5% 15% 10% 15%;
+    background: linear-gradient(135deg, #1a1a1a, #2e2e3a);
+    color: #d9d9d9;
+    font-family: Arial, sans-serif;
+}
+
+/* Form container styling */
+.form-container {
+    background: #25252f;
+    border: 1px solid #00b7cc;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+}
+.form-container h2 {
+    color: #00b7cc;
+    text-shadow: 0 0 3px rgba(0, 183, 204, 0.5);
+    margin: 0 0 20px;
+}
+
+/* Text input fields */
+.form-container input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    background: #1a1a1a;
+    border: 1px solid #4a4a5a;
+    border-radius: 4px;
+    color: #d9d9d9;
+    box-sizing: border-box;
+}
+.form-container input[type="text"]:focus {
+    border-color: #00b7cc;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 183, 204, 0.4);
+}
+
+/* Todo item layout */
+.todo-item {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    gap: 10px;
+}
+.todo-item input[type="text"] {
+    width: 80%;
+    margin: 0;
+}
+.todo-item.completed input[type="text"] {
+    text-decoration: line-through;
+    color: #4a4a5a; /* Muted gray for completed */
+}
+
+/* Dropdown styling */
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0 20px 0;
+    background: #1a1a1a;
+    border: 1px solid #4a4a5a;
+    border-radius: 4px;
+    color: #d9d9d9;
+}
+select:focus {
+    border-color: #00b7cc;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 183, 204, 0.4);
+}
+
+/* Tags section */
+.tags-section {
+    margin: 15px 0;
+}
+.tags-section input[type="checkbox"] {
+    accent-color: #00b7cc;
+    margin-right: 5px;
+}
+.tags-section label {
+    color: #d9d9d9;
+    margin-right: 10px;
+}
+
+/* Button styling */
+button {
+    padding: 12px 25px;
+    margin: 15px 10px 0 0;
+    background: linear-gradient(45deg, #00d4ff, #1b263b);
+    border: none;
+    border-radius: 5px;
+    color: #e0e1dd;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 212, 255, 0.5);
+}
+
+/* Links styling */
+a {
+    color: #00b7cc;
+    text-decoration: none;
+    margin-left: 15px;
+}
+a:hover {
+    text-decoration: underline;
+}

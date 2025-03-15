@@ -1,58 +1,75 @@
-<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<% response.sendRedirect(request.getContextPath() + "/home"); %>--%>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
+    <title>Home</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
 </head>
-
 <body>
-    <a href="/load/loadNoteList">All Notes</a>
-    <a href="/load/loadForm?mode=create">Create Note</a>
+<div class="content">
+    <!-- Logo -->
+    <div class="logo">NotesApp</div>
 
-    <hr>
-    <button onclick="showBox()">New Subject</button>
-    <div id="inputBox" style="display:none">
-        <input type="text" id="subjectInput" maxlength="20" placeholder="new subject">
-        <button onclick="submitData()">Submit</button>
-        <button onclick="hideBox()">Cancel</button>
+    <!-- All Notes button -->
+    <div class="button-group">
+        <a href="${pageContext.request.contextPath}/load/loadNoteList">
+            <button>All Notes</button></a>
     </div>
 
-    <hr>
+    <!-- Create note buttons -->
+    <div class="button-group">
+        <a href="${pageContext.request.contextPath}/load/loadForm?type=todolist&mode=create">
+            <button>Create TodoList Note</button></a>
+        <a href="${pageContext.request.contextPath}/load/loadForm?type=multimedia&mode=create">
+            <button>Create Multimedia Note</button></a>
+        <a href="${pageContext.request.contextPath}/load/loadForm?type=text&mode=create">
+            <button>Create Text Note</button></a>
+    </div>
 
-    <a href="searchNote.jsp">Search</a>
-    <script>
+    <hr><!-- New subject section -->
+    <div class="button-group">
+        <button onclick="showBox()">New Subject</button>
+        <div id="inputBox">
+            <input type="text" id="subjectInput" maxlength="20" placeholder="new subject">
+            <button onclick="submitData()">Submit</button>
+            <button onclick="hideBox()">Cancel</button>
+        </div>
+    </div>
 
-        function showBox(){
-            document.getElementById("inputBox").style.display="block";
-        }
-        function hideBox(){
-            document.getElementById("inputBox").style.display="none";
-        }
-        function submitData()
-        {
-            fetch("/note/addSubject",
-            {
-                method: "POST",
-                headers: {"Content-Type": "application/x-www-form-urlencoded"},
-                body: "newSubject=" + encodeURIComponent(document.getElementById("subjectInput").value)
-            })
-                .then(response => {
-                    if (response.ok) {
-                        document.getElementById("subjectInput").value = "";
-                        hideBox();
-                        window.alert("Submit successful");
-                    } else {
-                        throw new Error("Error");
-                    }
-                })
+    <hr><!-- Search button -->
+    <div class="button-group">
+        <a href="searchNote.jsp"><button>Search</button></a>
+    </div>
+</div>
 
-        }
+<!-- Footer with name and GitHub link -->
+<footer>
+    <b>Created by: </b> UCL CS, Luan Fangming (Kevin) | <a href="https://github.com/Yoimiya42" target="_blank">GitHub</a>
+</footer>
 
-
-    </script>
-
-
+<script>
+    function showBox() {
+        document.getElementById("inputBox").style.display = "block";
+    }
+    function hideBox() {
+        document.getElementById("inputBox").style.display = "none";
+    }
+    function submitData() {
+        fetch("/note/addSubject", {
+            method: "POST",
+            headers: {"Content-Type": "application/x-www-form-urlencoded"},
+            body: "newSubject=" + encodeURIComponent(document.getElementById("subjectInput").value)
+        })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById("subjectInput").value = "";
+                    hideBox();
+                    window.alert("Submit successful");
+                } else {
+                    throw new Error("Error");
+                }
+            });
+    }
+</script>
 </body>
 </html>

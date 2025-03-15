@@ -1,0 +1,15 @@
+{
+  "title" : "Refactor Front End",
+  "tags" : [ ],
+  "createdTime" : "20250314151834",
+  "modifiedTime" : "20250314195109",
+  "subject" : "TestNote",
+  "inTrash" : true,
+  "todoItems" : [ {
+    "task" : "html",
+    "completed" : true
+  }, {
+    "task" : "css",
+    "completed" : true
+  } ]
+}

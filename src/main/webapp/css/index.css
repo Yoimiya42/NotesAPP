@@ -1,0 +1,100 @@
+
+* { box-sizing: border-box; }
+/* Main page layout */
+body {
+    margin: 0;
+    padding: 5% 15% 2% 15%;
+    background: #1a1a1a;
+    color: #d9d9d9;
+    font-family: "Times New Roman", Times, serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Links styling */
+a {
+    color: #00b7cc;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+/* Button styling */
+button {
+    padding: 12px 24px;
+    background: #1a1a1a;
+    border: none;
+    border-radius: 4px;
+    color: #d9d9d9;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    /* box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.3); */
+}
+button:hover {
+    background: #2e2e3a;
+}
+
+/* Horizontal rule for section separation */
+hr {
+    border: 1px solid #4a4a5a;
+    margin: 20px 0;
+}
+
+/* Center all page content vertically and horizontally */
+.content {
+    text-align: center; /* Horizontal centering */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertical centering */
+}
+
+/* Logo at top */
+.logo {
+    font-size: 48px;
+    color: #00b7cc;
+    text-shadow: 0 0 5px rgba(0, 183, 204, 0.5);
+    margin-bottom: 20px;
+}
+
+/* Group of buttons */
+.button-group {
+    margin: 10px 0; /* Vertical spacing between groups */
+}
+.button-group a {
+    margin: 0 5px; /* Tight horizontal spacing - adjust if too close */
+}
+
+/* Subject input popup */
+#inputBox {
+    display: none;
+    margin-top: 10px;
+}
+#subjectInput {
+    padding: 10px;
+    background: #1a1a1a;
+    border: 1px solid #4a4a5a;
+    border-radius: 4px;
+    color: #d9d9d9;
+    margin-right: 10px;
+}
+#subjectInput:focus {
+    border-color: #00b7cc;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 183, 204, 0.4);
+}
+
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    color: #d9d9d9;
+    font-size: 14px;
+}
+footer a {
+    color: #00b7cc;
+}

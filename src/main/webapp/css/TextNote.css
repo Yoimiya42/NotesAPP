@@ -1,0 +1,116 @@
+* {box-sizing: border-box;}
+
+/*Main Page layout*/
+body {
+    margin: 0;
+    background: linear-gradient(135deg, #1a1a1a, #2e2e3a);
+    color: #d9d9d9;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Form container styling */
+.form-container {
+    background: #25252f;
+    border: 1px solid #00b7cc;
+    border-radius: 8px;
+    padding: 3vw;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+    width: 60%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5vh;
+    position: relative;
+}
+
+/* Common style for input fields, select, and textarea */
+.form-container input[type="text"],
+.form-container select,
+.form-container textarea {
+    width: 100%;
+    padding: 1vh;
+    margin-bottom: 1vh;
+    background: #1a1a1a;
+    border: 1px solid #4a4a5a;
+    border-radius: 4px;
+    color: #d9d9d9;
+    font-size: 1.2vw;
+}
+
+/* Focus styles for input fields, select, and textarea*/
+.form-container input[type="text"]:focus,
+.form-container select:focus,
+.form-container textarea:focus {
+    border-color: #00b7cc;
+    box-shadow: 0 0 5px rgba(0, 183, 204, 0.4);
+    outline: none;
+}
+
+
+.form-container textarea {
+    resize: none;
+    flex-grow: 1;
+    min-height: 20vh;
+}
+
+.form-container input[type="checkbox"] {
+    accent-color: #00b7cc;
+    margin-right: 1vw;
+    transform: scale(1.2);
+}
+
+/* 保存提示 */
+.save-notice {
+    position: absolute;
+    right: 2vw;
+    top: 1vh;
+    color: #00b7cc;
+    font-size: 1vw;
+    display: none;
+}
+.save-notice.show {
+    display: block;
+}
+
+/* Labels container */
+.labels-container {
+    margin: 1vh 0;
+}
+
+/* Button and link container */
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 删除按钮 */
+.delete-button {
+    display: none;
+    padding: 0.8vh 1.6vw;
+    background: #00b7cc;
+    border: none;
+    border-radius: 4px;
+    color: #d9d9d9;
+    cursor: pointer;
+    font-size: 1.2vw;
+}
+.delete-button:hover {
+    background: #0099aa;
+}
+
+/* 返回链接 */
+.back-link {
+    color: #00b7cc;
+    text-decoration: none;
+    font-size: 1.2vw;
+}
+.back-link:hover {
+    text-decoration: underline;
+}

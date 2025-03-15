@@ -1,0 +1,15 @@
+{
+  "title" : "Test NoteType",
+  "tags" : [ "Urgent", "Pending" ],
+  "createdTime" : "20250315014434",
+  "modifiedTime" : "20250315022616",
+  "subject" : "TestNote",
+  "inTrash" : true,
+  "todoItems" : [ {
+    "task" : "crud servlet",
+    "completed" : true
+  }, {
+    "task" : "load servlet",
+    "completed" : true
+  } ]
+}
