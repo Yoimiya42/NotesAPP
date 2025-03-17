@@ -65,6 +65,7 @@
 
         <div class="note-container" id="noteList">
             <% List<Note> notes = (List<Note>) request.getAttribute("notes");
+			int counter = 1;
                 if (notes == null || notes.isEmpty()) { %>
             <div class="empty-message">No notes available</div>
             <% } else {
@@ -76,7 +77,17 @@
                     <input type="hidden" name="id" value="<%=note.getId()%>">
                     <input type="hidden" name="mode" value="edit">
                     <button type="submit" class="note-button">
+                        <span class="note-number"><b><%= counter %> | </b></span>
                         <span class="note-title"><%=note.getTitle()%></span>
+                        <span class="note-tags">
+                            <%
+                                List<String> tags = note.getTags();
+                                if (tags != null && !tags.isEmpty()) {
+                                    for (String tag : tags) { %>
+                                        <span class="tag <%= tag %>"><%= tag %></span>
+                            <%      }
+                            } %>
+                        </span>
                         <div class="note-times">
                             <p>Modified: <%=note.showModifiedTime()%></p>
                             <p>Created: <%=note.showCreatedTime()%></p>
@@ -112,7 +123,7 @@
                 </div>
             </div>
             <div class="divider"></div>
-            <% }}} %>
+            <% counter++;}}} %>
         </div>
     </div>
 </div>

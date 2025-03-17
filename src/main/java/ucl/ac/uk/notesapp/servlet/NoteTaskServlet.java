@@ -7,6 +7,9 @@
  * Processes requests, interacts with the Model layer, and forwards results to the
  * View layer (JSP).
  *
+ * @author Luan Fangming
+ * @version 3.1
+ * @since 2025-03-09
  */
 
 

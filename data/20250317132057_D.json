@@ -1,0 +1,27 @@
+{
+  "title" : "TodoList Note Example",
+  "tags" : [ "Star", "Urgent", "Pending", "Review", "Idea" ],
+  "createdTime" : "20250317132057",
+  "modifiedTime" : "20250317133703",
+  "subject" : "COMP0004",
+  "inTrash" : false,
+  "todoItems" : [ {
+    "task" : "Multiple type of Notes, combination of links, images and text",
+    "completed" : true
+  }, {
+    "task" : "Created, deleted, edited, renamed",
+    "completed" : true
+  }, {
+    "task" : "Can be searched, sorted",
+    "completed" : true
+  }, {
+    "task" : "Automatically save",
+    "completed" : true
+  }, {
+    "task" : "Categories",
+    "completed" : true
+  }, {
+    "task" : "Additonal functionality: Recycle Bin",
+    "completed" : true
+  } ]
+}

@@ -55,7 +55,7 @@
         document.getElementById("inputBox").style.display = "none";
     }
     function submitData() {
-        fetch("/note/addSubject", {
+        fetch("/crud/addSubject", {
             method: "POST",
             headers: {"Content-Type": "application/x-www-form-urlencoded"},
             body: "newSubject=" + encodeURIComponent(document.getElementById("subjectInput").value)

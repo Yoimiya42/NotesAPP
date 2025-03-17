@@ -110,9 +110,9 @@
         mediaItems.forEach((item, index) => {
             const i = index + 1;
             const fileInput = item.querySelector("input[name='imageFile" + i + "']");
-            const hyperLinkInput = item.querySelector(`input[name='hyperLink${i}']`);
-            const descriptionInput = item.querySelector(`textarea[name='description${i}']`);
-            const existingImageUrl = item.querySelector(`input[name='existingImageUrl${i}']`)?.value;
+            const hyperLinkInput = item.querySelector("input[name='hyperLink"+ i + "']");
+            const descriptionInput = item.querySelector("textarea[name='description" + i +"']");
+            const existingImageUrl = item.querySelector("input[name='existingImageUrl"+ i + "']")?.value;
 
             const hyperLink = hyperLinkInput?.value || "";
             const description = descriptionInput?.value || "";

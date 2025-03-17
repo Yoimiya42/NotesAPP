@@ -11,27 +11,49 @@
     <title>New Note</title>
     <link rel="stylesheet" href="/css/TextNote.css">
 </head>
-<body>
+<%
+    boolean isEdit = "edit".equals(request.getAttribute("action"));
+    Note note = isEdit ? (Note) request.getAttribute("note") : null;
+%>
+
 <div class="form-container">
-    <p>${action}</p>
-    <form id="noteForm" action="/crud/createNote" method="post">
-        <input type="hidden", name="noteType", value="text">
-        <input type="text" name="title" id="noteTitle" placeholder="Input title..." required>
+    <p><%= request.getAttribute("action") != null ? request.getAttribute("action") : "create" %></p>
+    <form id="noteForm" action="<%= isEdit ?
+        "${pageContext.request.contextPath}/crud/updateNote?id=" + note.getId() :
+        "${pageContext.request.contextPath}/crud/createNote" %>" method="post">
+        <input type="hidden" name="noteType" value="text">
+        <% if (isEdit) { %>
+        <input type="hidden" name="id" value="<%= note.getId() %>">
+        <% } %>
+
+        <!-- Note Title -->
+        <input type="text" name="title" id="noteTitle" placeholder="Input title..." required
+               value="<%= isEdit ? note.getTitle().replace("\"", "&quot;") : "" %>">
+
+        <!-- Note Subject -->
         <select name="subject" id="noteSubject">
             <% List<String> subjects = (List<String>) request.getAttribute("subjects");
-                for(String subject : subjects) {%>
-            <option value="<%=subject%>"><%= subject %></option>
-            <%   } %>
+                for (String subject : subjects) { %>
+            <option value="<%= subject %>" <%= isEdit && subject.equals(note.getSubject()) ? "selected" : "" %>><%= subject %></option>
+            <% } %>
         </select>
+
         <hr>
         <br>
-        <input type="checkbox" name="tags" value="Star">Star
-        <input type="checkbox" name="tags" value="Urgent">Urgent
-        <input type="checkbox" name="tags" value="Pending">Pending
-        <input type="checkbox" name="tags" value="Review">Review
-        <input type="checkbox" name="tags" value="Idea">Idea
-        <br>
-        <textarea rows="14" cols="42" name="content" id="noteContent" placeholder="Enter..."></textarea>
+
+        <!-- Note Tags -->
+        <div class="tags-section">
+            <% List<String> noteTags = isEdit ? note.getTags() : null; %>
+            <input type="checkbox" name="tags" value="Star" <%= (noteTags != null && noteTags.contains("Star")) ? "checked" : "" %> id="tagStar"><label for="tagStar">Star</label>
+            <input type="checkbox" name="tags" value="Urgent" <%= (noteTags != null && noteTags.contains("Urgent")) ? "checked" : "" %> id="tagUrgent"><label for="tagUrgent">Urgent</label>
+            <input type="checkbox" name="tags" value="Pending" <%= (noteTags != null && noteTags.contains("Pending")) ? "checked" : "" %> id="tagPending"><label for="tagPending">Pending</label>
+            <input type="checkbox" name="tags" value="Review" <%= (noteTags != null && noteTags.contains("Review")) ? "checked" : "" %> id="tagReview"><label for="tagReview">Review</label>
+            <input type="checkbox" name="tags" value="Idea" <%= (noteTags != null && noteTags.contains("Idea")) ? "checked" : "" %> id="tagIdea"><label for="tagIdea">Idea</label>
+        </div>
+
+        <!-- Note Content -->
+        <textarea rows="14" cols="42" name="content" id="noteContent" placeholder="Enter...">
+            <%= isEdit && note instanceof TextNote ? ((TextNote) note).getContent(): "" %></textarea>
     </form>
 
     <button type="button" id="deleteButton" style="display: none" onclick="deleteNote()">Delete</button>
@@ -41,23 +63,6 @@
 
 <script>
     let noteId = "${action}" === "edit" ? "${note.id}" : null;
-    console.log(noteId)
-    window.onload = function() {
-        <% if ("edit".equals(request.getAttribute("action"))) {
-            Note note = (Note) request.getAttribute("note");
-        %>
-        console.log("EDIT");
-        document.getElementById("noteTitle").value = "<%= note.getTitle() %>";
-        document.getElementById("noteSubject").value = "<%= note.getSubject() %>";
-        <% if (note instanceof TextNote) { %>
-        document.getElementById("noteContent").value = "<%= ((TextNote) note).getContent() %>";
-        <% } %>
-        <% for (String tag : note.getTags()) { %>
-        document.querySelector("input[name='tags'][value='<%= tag %>']").checked = true;
-        <% } %>
-        document.getElementById("noteForm").action = "/crud/updateNote?id=<%= note.getId() %>";
-        <% } %>
-    };
 
     const form = document.getElementById("noteForm");
     const titleInput = document.getElementById("noteTitle");

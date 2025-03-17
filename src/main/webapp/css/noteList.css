@@ -130,15 +130,62 @@ body {
     flex-grow: 1;
     text-align: left;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
 }
+
+.note-number {
+    font-size: 16px;
+    font-weight: bold;
+    color: #d9d9d9;
+    min-width: 20px;
+    text-align: right;
+}
+
 .note-title {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 5px;
+    flex-grow: 1;
 }
+
+.note-tags {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.tag {
+    padding: 2px 6px;
+    font-size: 12px;
+    border-radius: 3px;
+    color: #fff;
+    background-color: #444;
+}
+
+.tag.star {
+    background-color: #ffd700;
+}
+.tag.urgent {
+    background-color: #ff4500;
+}
+.tag.pending {
+    background-color: #1e90ff;
+}
+.tag.review {
+    background-color: #8a2be2;
+}
+.tag.idea {
+    background-color: #32cd32;
+}
+
 .note-times {
     font-size: 12px;
     color: #aaa;
+    margin-left: 28px;
+    width: 100%;
 }
 .note-times p {
     margin: 2px 0;

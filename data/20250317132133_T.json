@@ -1,0 +1,9 @@
+{
+  "title" : "About Automatic Save",
+  "tags" : [ "Star", "Review" ],
+  "createdTime" : "20250317132133",
+  "modifiedTime" : "20250317133458",
+  "subject" : "COMP0004",
+  "inTrash" : false,
+  "content" : "                                    When you move your mouse out of this textarea box, or out of the outer border of the current form, or click Back to All Notes, any your changes are automatically saved and written to a local file."
+}
